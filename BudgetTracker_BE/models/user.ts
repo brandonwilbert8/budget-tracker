@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { monthEntriesSchema } from '../models/monthExpense.js';
+import { monthEntriesSchema } from './monthExpense';
 
 const userSchema = new mongoose.Schema({
   firstName: {

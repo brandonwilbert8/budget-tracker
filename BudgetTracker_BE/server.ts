@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import userRoute from './routes/userRoute.js';
-import { uri, db_port } from './config/db.config.js';
+import userRoute from './routes/userRoute';
+import { uri, db_port } from './config/db.config';
 
 dotenv.config({ path: '.env' });
 

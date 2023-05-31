@@ -1,5 +1,5 @@
 import express from 'express';
-import userModel from '../models/user.js';
+import userModel from '../models/user';
 
 const router = express.Router();
 
@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  // const user = req.body.user
   const user = new userModel({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -17,11 +18,13 @@ router.post('/', async (req, res) => {
     savingsPlan: req.body.savingsPlan,
   });
   try {
+    console.log(JSON.stringify(user));
     const newUser = await user.save();
     res.status(201).json(newUser);
   } catch (error) {
-    res.status(400).json({ message: error.message });
-    console.log('ERROR: ' + error.message);
+    const err = error as Error;
+    res.status(400).json({ message: err.message });
+    console.log('ERROR: ' + err.message);
   }
 });
 
