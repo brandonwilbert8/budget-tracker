@@ -2,12 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoute from './routes/userRoute.js';
+import { uri, db_port } from './config/db.config.js';
 
-dotenv.config();
+dotenv.config({ path: '.env' });
 
 const app = express();
-const uri = process.env.DB_CONNECTION;
-const port = process.env.PORT;
 
 async function connect() {
   try {
@@ -26,8 +25,8 @@ app.get('/api', (req, res) => {
   res.json('Welcome to Budget Tracker! 💸');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port: ${port} 🎉`);
+app.listen(db_port, () => {
+  console.log(`Server running on port: ${db_port} 🎉`);
 });
 
 app.use('/users', userRoute);
