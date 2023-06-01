@@ -1,9 +1,9 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import userModel from '../models/user';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const users = await userModel.find();
     res.json(users);
@@ -13,8 +13,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
-  // const user = req.body.user
+router.get('/:id', async (req: Request, res: Response) => {
+  try {
+    const targetedUser = await userModel.findById(req.params.id);
+    res.json(targetedUser);
+  } catch (error) {
+    const err = error as Error;
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.post('/', async (req: Request, res: Response) => {
   const user = new userModel({
     firstName: req.body.firstName,
     lastName: req.body.lastName,

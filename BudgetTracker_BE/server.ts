@@ -21,10 +21,6 @@ connect();
 
 app.use(express.json());
 
-app.get('/api', (req, res) => {
-  res.json('Welcome to Budget Tracker! 💸');
-});
-
 app.listen(db_port, () => {
   console.log(`Server running on port: ${db_port} 🎉`);
 });

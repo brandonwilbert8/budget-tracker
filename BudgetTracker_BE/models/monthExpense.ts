@@ -1,32 +1,5 @@
 import mongoose from 'mongoose';
-
-const expenseSchema = new mongoose.Schema({
-  description: {
-    type: String,
-    required: true,
-  },
-  category: {
-    type: String,
-    enum: ['Needs', 'Wants', 'Savings'],
-    required: true,
-  },
-  cost: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 10000,
-  },
-  date: {
-    type: Date,
-    required: true,
-  },
-});
-
-const expenseSummarySchema = new mongoose.Schema({
-  entries: {
-    type: [expenseSchema],
-  },
-});
+import { expenseSummarySchema } from './expense';
 
 const monthExpenseSchema = new mongoose.Schema({
   name: {
@@ -48,3 +21,7 @@ const monthExpenseSchema = new mongoose.Schema({
 export const monthEntriesSchema = new mongoose.Schema({
   type: [monthExpenseSchema],
 });
+
+const monthExpenseModel = mongoose.model('Month', monthEntriesSchema);
+
+export default monthExpenseModel;
