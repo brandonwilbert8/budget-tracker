@@ -17,7 +17,7 @@ router.get('/:id', async (req: Request, res: Response) => {
   try {
     const targetedUser = await userModel.findById(req.params.id);
     res.json(targetedUser);
-  } catch (error) {
+  } catch (error: unknown) {
     const err = error as Error;
     res.status(500).json({ message: err.message });
   }
@@ -36,7 +36,7 @@ router.post('/', async (req: Request, res: Response) => {
     console.log(JSON.stringify(user));
     const newUser = await user.save();
     res.status(201).json(newUser);
-  } catch (error) {
+  } catch (error: unknown) {
     const err = error as Error;
     res.status(400).json({ message: err.message });
     console.log('ERROR: ' + err.message);
