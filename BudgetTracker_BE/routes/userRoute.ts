@@ -3,8 +3,14 @@ import userModel from '../models/user';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Hello User!');
+router.get('/', async (req, res) => {
+  try {
+    const users = await userModel.find();
+    res.json(users);
+  } catch (error: unknown) {
+    const err = error as Error;
+    res.status(500).json({ message: err.message });
+  }
 });
 
 router.post('/', async (req, res) => {
