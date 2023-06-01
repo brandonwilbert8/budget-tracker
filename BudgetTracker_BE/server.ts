@@ -29,4 +29,4 @@ app.listen(db_port, () => {
   console.log(`Server running on port: ${db_port} 🎉`);
 });
 
-app.use('/users', userRoute);
+app.use(`${process.env.API_ROUTE}/users`, userRoute);
