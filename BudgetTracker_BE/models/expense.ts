@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const expenseSchema = new mongoose.Schema({
+export const expenseSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
@@ -22,12 +22,6 @@ const expenseSchema = new mongoose.Schema({
   },
 });
 
-export const expenseSummarySchema = new mongoose.Schema({
-  entries: {
-    type: [expenseSchema],
-  },
-});
-
-const expenseModel = mongoose.model('Expense', expenseSummarySchema);
+const expenseModel = mongoose.model('Expense', expenseSchema);
 
 export default expenseModel;

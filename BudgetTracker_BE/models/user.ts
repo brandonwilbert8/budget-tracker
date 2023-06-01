@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { monthEntriesSchema } from './monthExpense';
+import { monthExpenseSchema } from './monthExpense';
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     enum: ['Basic', 'Advanced', 'Maximiser'],
   },
   history: {
-    type: [monthEntriesSchema],
+    type: [monthExpenseSchema],
     required: false,
   },
 });
