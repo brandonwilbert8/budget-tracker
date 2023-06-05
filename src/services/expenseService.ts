@@ -6,6 +6,11 @@ export async function createExpense(expenseData: Expense) {
     return expenseModel.create(expenseData);
 }
 
+// Get all expenses
+export async function getAllExpenses() {
+    return expenseModel.find();
+}
+
 // Retrieve an expense via ID
 export async function getExpenseById(expenseId: string) {
     return expenseModel.findById(expenseId);
