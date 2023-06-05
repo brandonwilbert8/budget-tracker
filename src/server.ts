@@ -11,12 +11,12 @@ dotenv.config({ path: '.env' });
 const app = express();
 
 async function connect() {
-  try {
-    await mongoose.connect(uri, { dbName: 'expenseTrackerDB' });
-    console.log('Connected to MongoDB 📀');
-  } catch (error) {
-    console.error(`Error message: ${error}`);
-  }
+    try {
+        await mongoose.connect(uri, { dbName: 'expenseTrackerDB' });
+        console.log('Connected to MongoDB 📀');
+    } catch (error) {
+        console.error(`Error message: ${error}`);
+    }
 }
 
 connect();
@@ -24,9 +24,11 @@ connect();
 app.use(express.json());
 
 app.listen(db_port, () => {
-  console.log(`Server running on port: ${db_port} 🎉`);
+    console.log(`Server running on port: ${db_port} 🎉`);
 });
 
 app.use(`${process.env.API_ROUTE}/users`, userRoute);
-app.use(`${process.env.API_ROUTE}/users/monthExpense`, monthExpenseRoute);
+
+app.use(`${process.env.API_ROUTE}/monthExpense`, monthExpenseRoute);
+
 app.use(`${process.env.API_ROUTE}/expense`, expenseRoute);
