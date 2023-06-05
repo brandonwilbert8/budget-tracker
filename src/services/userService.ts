@@ -2,7 +2,7 @@ import userModel from '../models/user';
 import monthExpenseModel from '../models/monthExpense';
 import { MonthExpense, User } from '../types/entities';
 
-export const createUser = async (userData: User) => {
+export const createUser = async (userData: User): Promise<User> => {
     try {
         const user = new userModel(userData);
         const newUser = await user.save();
@@ -12,7 +12,7 @@ export const createUser = async (userData: User) => {
     }
 };
 
-export const getAllUsers = async () => {
+export const getAllUsers = async (): Promise<Array<User>> => {
     try {
         const users = await userModel.find();
         return users;
@@ -21,7 +21,7 @@ export const getAllUsers = async () => {
     }
 };
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (userId: string): Promise<User | null> => {
     try {
         const targetedUser = await userModel.findById(userId);
         return targetedUser;
@@ -30,10 +30,9 @@ export const getUserById = async (userId: string) => {
     }
 };
 
-export const deleteUserById = async (userId: string) => {
+export const deleteUserById = async (userId: string): Promise<void> => {
     try {
-        const targetedUser = await userModel.findByIdAndDelete(userId);
-        return targetedUser;
+        await userModel.findByIdAndDelete(userId);
     } catch (error) {
         throw new Error('Failed to delete the targeted user');
     }
@@ -42,7 +41,7 @@ export const deleteUserById = async (userId: string) => {
 export const updateUserHistory = async (
     monthExpenseData: MonthExpense,
     userId: string
-) => {
+): Promise<User | null> => {
     try {
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
