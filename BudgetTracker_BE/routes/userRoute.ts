@@ -1,11 +1,13 @@
 import express, { Request, Response } from 'express';
 import userModel from '../models/user';
+import monthExpenseModel from '../models/monthExpense';
 
 const router = express.Router();
 
 router.get('/', async (req: Request, res: Response) => {
   try {
     const users = await userModel.find();
+    console.log('Found all users → ' + JSON.stringify(users));
     res.json(users);
   } catch (error: unknown) {
     const err = error as Error;
@@ -15,7 +17,9 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.get('/:id', async (req: Request, res: Response) => {
   try {
-    const targetedUser = await userModel.findById(req.params.id);
+    const objectId = req.params.id;
+    const targetedUser = await userModel.findById(objectId);
+    console.log('Found → ' + JSON.stringify(targetedUser));
     res.json(targetedUser);
   } catch (error: unknown) {
     const err = error as Error;
@@ -24,18 +28,30 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 router.post('/', async (req: Request, res: Response) => {
-  const user = new userModel({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    username: req.body.username,
-    password: req.body.password,
-    monthlyIncome: req.body.monthlyIncome,
-    savingsPlan: req.body.savingsPlan,
-  });
+  const user = new userModel(req.body);
   try {
-    console.log(JSON.stringify(user));
     const newUser = await user.save();
+    console.log('Adding → ' + JSON.stringify(user));
     res.status(201).json(newUser);
+  } catch (error: unknown) {
+    const err = error as Error;
+    res.status(400).json({ message: err.message });
+    console.log('ERROR: ' + err.message);
+  }
+});
+
+router.put('/:id', async (req: Request, res: Response) => {
+  const objectId = req.params.id;
+  const monthExpense = new monthExpenseModel(req.body);
+  try {
+    const updatedUser = await userModel.findByIdAndUpdate(objectId, {
+      $push: {
+        history: monthExpense,
+      },
+    });
+    await monthExpense.save();
+    console.log('Adding → ' + JSON.stringify(monthExpense) + 'to → ' + JSON.stringify(updatedUser));
+    res.status(201).json(updatedUser);
   } catch (error: unknown) {
     const err = error as Error;
     res.status(400).json({ message: err.message });
