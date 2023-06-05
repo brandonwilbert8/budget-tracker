@@ -5,3 +5,19 @@ export type Expense = {
     cost: number;
     date: Date;
 };
+
+export type MonthExpense = {
+    name: number;
+    year: number;
+    expenseCollection: Array<Expense>;
+};
+
+export type User = {
+    firstName: string;
+    lastName: string;
+    username: string;
+    password: string;
+    monthlyIncome: number;
+    savingsPlan: string;
+    history: Array<MonthExpense>;
+};
