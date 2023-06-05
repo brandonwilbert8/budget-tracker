@@ -13,15 +13,8 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', getExpense, async (req: Request, res: Response) => {
   res.send(res.expense);
-  // try {
-  //   const targetedExpense = await expenseModel.findById(req.params.id);
-  //   res.json(targetedExpense);
-  // } catch (error: unknown) {
-  //   const err = error as Error;
-  //   res.status(500).json({ message: err.message });
-  // }
 });
 
 router.post('/', async (req: Request, res: Response) => {
