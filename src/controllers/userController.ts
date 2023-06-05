@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as userService from '../services/userService';
+import { returnError } from '../utils/helpers';
 
 export const createUser = async (
     req: Request,
@@ -10,8 +11,7 @@ export const createUser = async (
         const newUser = await userService.createUser(userData);
         res.status(201).json(newUser);
     } catch (error: unknown) {
-        const err = error as Error;
-        res.status(500).json({ message: err.message });
+        returnError(error, res);
     }
 };
 
@@ -23,8 +23,7 @@ export const getAllUsers = async (
         const users = await userService.getAllUsers();
         res.status(200).json(users);
     } catch (error) {
-        const err = error as Error;
-        res.status(500).json({ message: err.message });
+        returnError(error, res);
     }
 };
 
@@ -41,8 +40,7 @@ export const getUserById = async (
             res.status(200).json(targetedUser);
         }
     } catch (error) {
-        const err = error as Error;
-        res.status(500).json({ message: err.message });
+        returnError(error, res);
     }
 };
 
@@ -52,11 +50,10 @@ export const deleteUserById = async (
 ): Promise<void> => {
     const userId = req.params.id;
     try {
-        const targetedUser = await userService.deleteUserById(userId);
-        res.status(200).json(targetedUser);
+        await userService.deleteUserById(userId);
+        res.status(200).json({ message: 'Successfully removed the user!' });
     } catch (error) {
-        const err = error as Error;
-        res.status(500).json({ message: err.message });
+        returnError(error, res);
     }
 };
 
@@ -73,7 +70,6 @@ export const updateUserHistory = async (
         );
         res.status(200).json(updatedUser);
     } catch (error) {
-        const err = error as Error;
-        res.status(500).json({ message: err.message });
+        returnError(error, res);
     }
 };

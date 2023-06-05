@@ -9,7 +9,7 @@ export type Expense = {
 export type MonthExpense = {
     name: number;
     year: number;
-    expenseCollection: Array<Expense>;
+    expenseCollection?: Array<Expense>;
 };
 
 export type User = {
@@ -19,5 +19,5 @@ export type User = {
     password: string;
     monthlyIncome: number;
     savingsPlan: string;
-    history: Array<MonthExpense>;
+    history?: Array<MonthExpense>;
 };
