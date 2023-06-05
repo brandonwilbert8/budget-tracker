@@ -1,48 +1,42 @@
 import { Request, Response } from 'express';
-import {
-    createExpense,
-    getAllExpenses,
-    getExpenseById,
-    updateExpenseById,
-    deleteExpenseById,
-} from '../services/expenseService';
+import * as expenseService from '../services/expenseService';
 
 // Create a new expense
-export async function createExpenseHandler(
+export const createExpense = async (
     req: Request,
     res: Response
-): Promise<void> {
+): Promise<void> => {
     try {
-        const newExpense = await createExpense(req.body);
+        const newExpense = await expenseService.createExpense(req.body);
         res.status(200).json(newExpense);
     } catch (error: unknown) {
         const err = error as Error;
         res.status(500).json({ message: err.message });
     }
-}
+};
 
 // Get all expenses
-export async function getAllExpensesHandler(
+export const getAllExpenses = async (
     req: Request,
     res: Response
-): Promise<void> {
+): Promise<void> => {
     try {
-        const expenses = await getAllExpenses();
+        const expenses = await expenseService.getAllExpenses();
         console.log(expenses);
         res.status(200).json(expenses);
     } catch (error: unknown) {
         const err = error as Error;
         res.status(500).json({ message: err.message });
     }
-}
+};
 
 // Retrieve expense by ID
-export async function getExpenseByIdHandler(
+export const getExpenseById = async (
     req: Request,
     res: Response
-): Promise<void> {
+): Promise<void> => {
     try {
-        const expense = await getExpenseById(req.params.id);
+        const expense = await expenseService.getExpenseById(req.params.id);
         if (!expense) {
             res.status(404).json({ message: 'Expense not found!' });
         } else {
@@ -52,30 +46,33 @@ export async function getExpenseByIdHandler(
         const err = error as Error;
         res.status(500).json({ message: err.message });
     }
-}
+};
 // Update expense by ID
-export async function updateExpenseByIdHandler(
+export const updateExpenseById = async (
     req: Request,
     res: Response
-): Promise<void> {
+): Promise<void> => {
     try {
-        const updatedExpense = await updateExpenseById(req.params.id, req.body);
+        const updatedExpense = await expenseService.updateExpenseById(
+            req.params.id,
+            req.body
+        );
         res.status(200).json(updatedExpense);
     } catch (error: unknown) {
         const err = error as Error;
         res.status(500).json({ message: err.message });
     }
-}
+};
 // Delete expense by ID
-export async function deleteExpenseByIdHandler(
+export const deleteExpenseById = async (
     req: Request,
     res: Response
-): Promise<void> {
+): Promise<void> => {
     try {
-        await deleteExpenseById(req.params.id);
+        await expenseService.deleteExpenseById(req.params.id);
         res.status(204).send();
     } catch (error: unknown) {
         const err = error as Error;
         res.status(500).json({ message: err.message });
     }
-}
+};
