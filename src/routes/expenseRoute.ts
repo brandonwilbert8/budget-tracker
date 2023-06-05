@@ -52,6 +52,17 @@ router.put('/:id', getExpense, async (req: Request, res: Response) => {
     }
 });
 
+router.delete('/:id', getExpense, async (req: Request, res: Response) => {
+    const objectId = req.params.id;
+    try {
+        await expenseModel.findByIdAndDelete(objectId);
+        res.status(200).json({ message: 'Deleted Expense' });
+    } catch (error: unknown) {
+        const err = error as Error;
+        res.status(500).json({ message: err.message });
+    }
+});
+
 async function getExpense(req: Request, res: Response, next: NextFunction) {
     let expense;
     try {
