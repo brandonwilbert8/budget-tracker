@@ -6,8 +6,10 @@ export const createMonthExpense = async (
     res: Response
 ): Promise<void> => {
     const monthExpenseData = req.body;
+    const userId = req.params.userId;
     try {
         const newMonthExpense = await monthExpenseService.createMonthExpense(
+            userId,
             monthExpenseData
         );
         res.status(201).json(newMonthExpense);

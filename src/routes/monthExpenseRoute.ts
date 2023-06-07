@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', monthExpenseController.getAllMonthExpenses);
 router.get('/:id', monthExpenseController.getMonthExpenseById);
-router.post('/', monthExpenseController.createMonthExpense);
+router.post('/:userId', monthExpenseController.createMonthExpense);
 router.delete('/:id', monthExpenseController.deleteMonthExpenseById);
 
 export default router;

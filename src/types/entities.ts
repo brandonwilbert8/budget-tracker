@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongoose';
+
 // This file is dedicated to labelling types to use across the project directories
 export type Expense = {
     description: string;

@@ -56,20 +56,3 @@ export const deleteUserById = async (
         returnError(error, res);
     }
 };
-
-export const updateUserHistory = async (
-    req: Request,
-    res: Response
-): Promise<void> => {
-    const userId = req.params.id;
-    const monthExpenseData = req.body;
-    try {
-        const updatedUser = await userService.updateUserHistory(
-            monthExpenseData,
-            userId
-        );
-        res.status(200).json(updatedUser);
-    } catch (error) {
-        returnError(error, res);
-    }
-};

@@ -1,12 +1,26 @@
 import monthExpenseModel from '../models/monthExpense';
+import userModel from '../models/user';
 import { MonthExpense } from '../types/entities';
+import { getUserByMonthExpenseId } from '../utils/helpers';
 
 export const createMonthExpense = async (
+    userId: string,
     monthExpenseData: MonthExpense
 ): Promise<MonthExpense> => {
     try {
         const monthExpense = new monthExpenseModel(monthExpenseData);
         const newMonthExpense = await monthExpense.save();
+        await userModel.findByIdAndUpdate(
+            userId,
+            {
+                $push: {
+                    history: newMonthExpense,
+                },
+            },
+            {
+                returnDocument: 'after',
+            }
+        );
         return newMonthExpense;
     } catch (error) {
         throw new Error('Failed to create monthExpense');
@@ -39,6 +53,18 @@ export const deleteMonthExpenseById = async (
     monthExpenseId: string
 ): Promise<MonthExpense | null> => {
     try {
+        const targetedUser = await getUserByMonthExpenseId(monthExpenseId);
+        await userModel
+            .findByIdAndUpdate(
+                targetedUser?.id,
+                {
+                    $pull: { history: { _id: monthExpenseId } },
+                },
+                {
+                    returnDocument: 'after',
+                }
+            )
+            .exec();
         const targetedMonthExpense = await monthExpenseModel.findByIdAndDelete(
             monthExpenseId
         );

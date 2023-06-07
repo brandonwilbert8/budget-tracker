@@ -1,6 +1,5 @@
 import userModel from '../models/user';
-import monthExpenseModel from '../models/monthExpense';
-import { MonthExpense, User } from '../types/entities';
+import { User } from '../types/entities';
 
 export const createUser = async (userData: User): Promise<User> => {
     try {
@@ -35,29 +34,5 @@ export const deleteUserById = async (userId: string): Promise<void> => {
         await userModel.findByIdAndDelete(userId);
     } catch (error) {
         throw new Error('Failed to delete the targeted user');
-    }
-};
-
-export const updateUserHistory = async (
-    monthExpenseData: MonthExpense,
-    userId: string
-): Promise<User | null> => {
-    try {
-        const updatedUser = await userModel.findByIdAndUpdate(
-            userId,
-            {
-                $push: {
-                    history: monthExpenseData,
-                },
-            },
-            {
-                returnDocument: 'after',
-            }
-        );
-        const monthExpense = new monthExpenseModel(monthExpenseData);
-        await monthExpense.save();
-        return updatedUser;
-    } catch (error) {
-        throw new Error('Failed to update the targeted user history');
     }
 };
