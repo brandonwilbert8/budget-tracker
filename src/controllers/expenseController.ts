@@ -8,7 +8,12 @@ export const createExpense = async (
     res: Response
 ): Promise<void> => {
     try {
-        const newExpense = await expenseService.createExpense(req.body);
+        const expenseData = req.body;
+        const monthExpenseId = req.params.monthExpenseId;
+        const newExpense = await expenseService.createExpense(
+            expenseData,
+            monthExpenseId
+        );
         res.status(200).json(newExpense);
     } catch (error: unknown) {
         returnError(error, res);
@@ -65,9 +70,12 @@ export const deleteExpenseById = async (
     req: Request,
     res: Response
 ): Promise<void> => {
+    const expenseId = req.params.id;
     try {
-        await expenseService.deleteExpenseById(req.params.id);
-        res.status(204).send();
+        const targetedExpense = await expenseService.deleteExpenseById(
+            expenseId
+        );
+        res.status(200).json(targetedExpense);
     } catch (error: unknown) {
         returnError(error, res);
     }

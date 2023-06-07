@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import userModel from '../models/user';
+import monthExpenseModel from '../models/monthExpense';
 
 // Helper for returning errors
 export const returnError = (error: unknown, res?: Response, req?: Request) => {
@@ -13,5 +14,14 @@ export const getUserByMonthExpenseId = async (monthExpenseId: string) => {
         .findOne()
         .where('history._id')
         .equals(monthExpenseId)
+        .exec();
+};
+
+// Helper for getting a monthExpense by expenseId
+export const getMonthExpenseByExpenseId = async (expenseId: string) => {
+    return await monthExpenseModel
+        .findOne()
+        .where('expenseCollection._id')
+        .equals(expenseId)
         .exec();
 };

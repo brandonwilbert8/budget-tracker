@@ -1,10 +1,27 @@
 import expenseModel from '../models/expense';
+import monthExpenseModel from '../models/monthExpense';
 import { Expense } from '../types/entities';
+import { getMonthExpenseByExpenseId } from '../utils/helpers';
 
 // Create a new Expense
-export const createExpense = async (expenseData: Expense): Promise<Expense> => {
+export const createExpense = async (
+    expenseData: Expense,
+    monthExpenseId: string
+): Promise<Expense> => {
     try {
-        return expenseModel.create(expenseData);
+        const newExpense = await expenseModel.create(expenseData);
+        await monthExpenseModel.findByIdAndUpdate(
+            monthExpenseId,
+            {
+                $push: {
+                    expenseCollection: newExpense,
+                },
+            },
+            {
+                returnDocument: 'after',
+            }
+        );
+        return newExpense;
     } catch (error: unknown) {
         throw new Error('Could not create expense');
     }
@@ -44,20 +61,33 @@ export const updateExpenseById = async (
     updatedData: Expense
 ): Promise<Expense | null> => {
     try {
-        const targetExpense = await expenseModel.findByIdAndUpdate(
+        const monthExpense = await getMonthExpenseByExpenseId(expenseId);
+        const updatedExpense = await expenseModel.findByIdAndUpdate(
             expenseId,
             updatedData,
             {
                 returnDocument: 'after',
             }
         );
-        if (!targetExpense) {
+        if (!updatedExpense) {
             throw new Error(
                 'Could not update, please ensure the specified fields are updated correctly'
             );
-        } else {
-            return targetExpense;
         }
+        await monthExpenseModel
+            .findByIdAndUpdate(
+                monthExpense?._id,
+                {
+                    $set: {
+                        expenseCollection: updatedExpense,
+                    },
+                },
+                {
+                    returnDocument: 'after',
+                }
+            )
+            .exec();
+        return updatedExpense;
     } catch (error: unknown) {
         throw new Error(
             'Could not update, please ensure the specified fields are updated correctly'
@@ -66,7 +96,9 @@ export const updateExpenseById = async (
 };
 
 // Delete an expense
-export const deleteExpenseById = async (expenseId: string): Promise<void> => {
+export const deleteExpenseById = async (
+    expenseId: string
+): Promise<Expense | null> => {
     try {
         const targetExpense = await expenseModel.findByIdAndDelete(expenseId);
         if (!targetExpense) {
@@ -74,6 +106,22 @@ export const deleteExpenseById = async (expenseId: string): Promise<void> => {
                 'Could not delete expense, ensure that the ID is correct'
             );
         }
+        const targetedMonthExpense = await getMonthExpenseByExpenseId(
+            expenseId
+        );
+        await monthExpenseModel
+            .findByIdAndUpdate(
+                targetedMonthExpense?._id,
+                {
+                    $pull: { expenseCollection: { _id: expenseId } },
+                },
+                {
+                    returnDocument: 'after',
+                }
+            )
+            .exec();
+        const targetedExpense = await expenseModel.findByIdAndDelete(expenseId);
+        return targetedExpense;
     } catch (error: unknown) {
         throw new Error(
             'Could not delete expense, ensure that the ID is correct'
