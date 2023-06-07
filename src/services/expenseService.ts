@@ -13,7 +13,7 @@ export const createExpense = async (expenseData: Expense): Promise<Expense> => {
 // Get all expenses
 export const getAllExpenses = async (): Promise<Array<Expense> | null> => {
     try {
-        return expenseModel.find();
+        return await expenseModel.find();
     } catch (error: unknown) {
         throw new Error('Could not retrieve list expenses');
     }
@@ -24,14 +24,17 @@ export const getExpenseById = async (
     expenseId: string
 ): Promise<Expense | null> => {
     try {
-        const targetExpense = expenseModel.findById(expenseId);
+        const targetExpense = await expenseModel.findById(expenseId);
         if (!targetExpense) {
-            throw new Error('could not get expense');
+            throw new Error(
+                'Could not get expense,  please ensure ID is correct'
+            );
         } else {
+            console.log(targetExpense);
             return targetExpense;
         }
     } catch (error: unknown) {
-        throw new Error('Could not get expense');
+        throw new Error('Could not get expense, please ensure ID is correct');
     }
 };
 
@@ -41,7 +44,7 @@ export const updateExpenseById = async (
     updatedData: Expense
 ): Promise<Expense | null> => {
     try {
-        const targetExpense = expenseModel.findByIdAndUpdate(
+        const targetExpense = await expenseModel.findByIdAndUpdate(
             expenseId,
             updatedData,
             {
@@ -49,20 +52,31 @@ export const updateExpenseById = async (
             }
         );
         if (!targetExpense) {
-            throw new Error('Could not update');
+            throw new Error(
+                'Could not update, please ensure the specified fields are updated correctly'
+            );
         } else {
             return targetExpense;
         }
     } catch (error: unknown) {
-        throw new Error('Could not update');
+        throw new Error(
+            'Could not update, please ensure the specified fields are updated correctly'
+        );
     }
 };
 
 // Delete an expense
 export const deleteExpenseById = async (expenseId: string): Promise<void> => {
     try {
-        expenseModel.findByIdAndDelete(expenseId);
+        const targetExpense = await expenseModel.findByIdAndDelete(expenseId);
+        if (!targetExpense) {
+            throw new Error(
+                'Could not delete expense, ensure that the ID is correct'
+            );
+        }
     } catch (error: unknown) {
-        throw new Error('Could not delete');
+        throw new Error(
+            'Could not delete expense, ensure that the ID is correct'
+        );
     }
 };

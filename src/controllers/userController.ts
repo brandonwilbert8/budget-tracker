@@ -51,7 +51,7 @@ export const deleteUserById = async (
     const userId = req.params.id;
     try {
         await userService.deleteUserById(userId);
-        res.status(200).json({ message: 'Successfully removed the user!' });
+        res.status(200).json({ message: 'Account has been deleted!' });
     } catch (error) {
         returnError(error, res);
     }

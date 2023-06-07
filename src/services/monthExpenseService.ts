@@ -1,7 +1,7 @@
 import monthExpenseModel from '../models/monthExpense';
 import userModel from '../models/user';
 import { MonthExpense } from '../types/entities';
-import { getUserByMonthExpenseId } from '../utils/helpers';
+import { getUserByMonthExpenseId, returnError } from '../utils/helpers';
 
 export const createMonthExpense = async (
     userId: string,
@@ -22,36 +22,48 @@ export const createMonthExpense = async (
             }
         );
         return newMonthExpense;
-    } catch (error) {
-        throw new Error('Failed to create monthExpense');
+    } catch (error: unknown) {
+        throw new Error('Could not create Month, ensure fields are correct');
     }
 };
 
 export const getAllMonthExpenses = async (): Promise<Array<MonthExpense>> => {
     try {
         const monthExpenses = await monthExpenseModel.find();
-        return monthExpenses;
-    } catch (error) {
-        throw new Error('Failed to fetch all monthExpenses');
+        if (!monthExpenses) {
+            throw new Error('Could not retrieve list of Month Expenses');
+        } else {
+            return monthExpenses;
+        }
+    } catch (error: unknown) {
+        throw new Error('Could not retrieve list of Month Expenses');
     }
 };
 
 export const getMonthExpenseById = async (
     monthExpenseId: string
-): Promise<MonthExpense | null> => {
+): Promise<MonthExpense> => {
     try {
         const targetedMonthExpense = await monthExpenseModel.findById(
             monthExpenseId
         );
-        return targetedMonthExpense;
-    } catch (error) {
-        throw new Error('Failed to find the targeted monthExpense');
+        if (!targetedMonthExpense) {
+            throw new Error(
+                'Could not retrieve Month Expense, ensure ID is correct'
+            );
+        } else {
+            return targetedMonthExpense;
+        }
+    } catch (error: unknown) {
+        throw new Error(
+            'Could not retreive Month Expense, ensure ID is correct'
+        );
     }
 };
 
 export const deleteMonthExpenseById = async (
     monthExpenseId: string
-): Promise<MonthExpense | null> => {
+): Promise<MonthExpense> => {
     try {
         const targetedUser = await getUserByMonthExpenseId(monthExpenseId);
         await userModel
@@ -68,8 +80,14 @@ export const deleteMonthExpenseById = async (
         const targetedMonthExpense = await monthExpenseModel.findByIdAndDelete(
             monthExpenseId
         );
-        return targetedMonthExpense;
+        if (!targetedMonthExpense) {
+            throw new Error(
+                'Could not delete monthExpense, ensure ID is correct'
+            );
+        } else {
+            return targetedMonthExpense;
+        }
     } catch (error) {
-        throw new Error('Failed to delete the targeted monthExpense');
+        throw new Error('Could not delete monthExpense, ensure ID is correct');
     }
 };
