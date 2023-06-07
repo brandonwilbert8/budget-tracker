@@ -1,3 +1,4 @@
+import expenseModel from '../models/expense';
 import monthExpenseModel from '../models/monthExpense';
 import userModel from '../models/user';
 import { MonthExpense } from '../types/entities';
@@ -80,6 +81,9 @@ export const deleteMonthExpenseById = async (
         const targetedMonthExpense = await monthExpenseModel.findByIdAndDelete(
             monthExpenseId
         );
+        targetedMonthExpense?.expenseCollection.map(async (expense) => {
+            await expenseModel.findByIdAndDelete(expense._id);
+        });
         if (!targetedMonthExpense) {
             throw new Error(
                 'Could not delete monthExpense, ensure ID is correct'

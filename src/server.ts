@@ -29,6 +29,6 @@ app.listen(db_port, () => {
 
 app.use(`${process.env.API_ROUTE}/users`, userRoute);
 
-app.use(`${process.env.API_ROUTE}/monthExpense`, monthExpenseRoute);
+app.use(`${process.env.API_ROUTE}/month_expense`, monthExpenseRoute);
 
 app.use(`${process.env.API_ROUTE}/expense`, expenseRoute);
