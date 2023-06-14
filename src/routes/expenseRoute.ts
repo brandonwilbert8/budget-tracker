@@ -8,7 +8,7 @@ router.get('/', expenseController.getAllExpenses);
 router.get('/:id', expenseController.getExpenseById);
 
 // POST Requests
-router.post('/:monthExpenseId', expenseController.createExpense);
+router.post('/:month_expense_id', expenseController.createExpense);
 
 // PUT Requests
 router.put('/:id', expenseController.updateExpenseById);
