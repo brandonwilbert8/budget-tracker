@@ -3,5 +3,11 @@ module.exports = {
   extends: '@react-native-community',
   parserOptions: {
     requireConfigFile: false,
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    project: './client/tsconfig.json',
   },
 };
