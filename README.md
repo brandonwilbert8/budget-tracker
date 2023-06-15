@@ -24,8 +24,13 @@ npm install
  npx react-native run-ios
 ```
 
+```js
+ npx react-native run-android
+```
+
 ## Support 🚀
 
 In case of any questions or problems, please contact us at:
+
 - Brandon Wilbert - [brandonwilbert8@gmail.com](mailto:brandonwilbert8@gmail.com) 👦
 - Vincent La - [vtla101@gmail.com](mailto:vtla101@gmail.com) 👦
