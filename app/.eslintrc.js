@@ -8,6 +8,7 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
+    tsconfigRootDir: __dirname,
   },
   'eslint.workingDirectories': [
     {directory: 'client/', changeProcessCWD: true},

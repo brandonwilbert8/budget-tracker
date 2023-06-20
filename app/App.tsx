@@ -1,20 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import 'react-native-gesture-handler';
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import HomeScreen from './screens/HomeScreen';
+import SummaryScreen from './screens/SummaryScreen';
+import OverviewScreen from './screens/OverviewScreen';
 import LandingScreen from './screens/LandingScreen';
+
+const Drawer = createDrawerNavigator();
 
 function App(): JSX.Element {
   return (
-    <>
-      <StatusBar barStyle={'light-content'} />
-      <LandingScreen />
-    </>
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Landing" component={LandingScreen} />
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Summary" component={SummaryScreen} />
+        <Drawer.Screen name="Overview" component={OverviewScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
 
