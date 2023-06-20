@@ -7,21 +7,27 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
+import DollarIcon from '../assets/icons/DollarIcon';
 
 export default function LandingScreen(): JSX.Element {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <Text style={styles.h1}>Enter your monthly income</Text>
-        <View style={styles.straightLine} />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Type your income here!"
-          inputMode="numeric"
-          keyboardType="numeric"
-          placeholderTextColor={'#8177A0'}
-          showSoftInputOnFocus={true}
-        />
+        <View style={styles.mainContent}>
+          <Text style={styles.h1}>Enter your monthly income</Text>
+          <View style={styles.straightLine} />
+          <View style={styles.searchSection}>
+            <DollarIcon style={styles.searchIcon} />
+            <TextInput
+              style={styles.textInput}
+              placeholder="Type your income here!"
+              inputMode="numeric"
+              keyboardType="numeric"
+              placeholderTextColor={'#8177A0'}
+              showSoftInputOnFocus={true}
+            />
+          </View>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -31,9 +37,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#2A2636',
+  },
+  mainContent: {
     alignItems: 'center',
     width: '100%',
-    padding: 10,
+    marginBottom: 40,
   },
   h1: {
     color: '#FFFFFF',
@@ -44,13 +52,10 @@ const styles = StyleSheet.create({
     lineHeight: 40,
   },
   textInput: {
-    height: 50,
     backgroundColor: '#FFFFFF',
+    color: '#2A2636',
     fontSize: 20,
-    margin: 20,
-    borderWidth: 0,
     borderColor: '#D0D5DD',
-    borderRadius: 15,
     padding: 1,
     width: 350,
     textAlign: 'center',
@@ -58,7 +63,24 @@ const styles = StyleSheet.create({
   straightLine: {
     borderBottomColor: '#FFFFFF',
     borderBottomWidth: 1,
-    width: 350,
-    margin: 10,
+    width: 380,
+    marginBottom: 10,
+  },
+  searchIcon: {
+    padding: 10,
+    marginLeft: 15,
+  },
+  searchSection: {
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingLeft: 0,
+    marginTop: 15,
   },
 });
