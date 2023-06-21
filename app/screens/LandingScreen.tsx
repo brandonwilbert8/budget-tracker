@@ -1,13 +1,14 @@
 import React from 'react';
 import {
-  Text,
   View,
   StyleSheet,
   TextInput,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import DollarIcon from '../assets/icons/DollarIcon';
+import {Text} from '../components/Text';
+import {Colors} from '../assets/constants';
+import {MaterialIcon} from '../components/Icon';
 
 export default function LandingScreen(): JSX.Element {
   return (
@@ -17,12 +18,17 @@ export default function LandingScreen(): JSX.Element {
           <Text style={styles.h1}>Enter your monthly income</Text>
           <View style={styles.straightLine} />
           <View style={styles.searchSection}>
-            <DollarIcon style={styles.searchIcon} />
+            <MaterialIcon
+              size="large"
+              color={Colors.background}
+              name="currency-usd"
+            />
             <TextInput
               style={styles.textInput}
               placeholder="Type your income here!"
               inputMode="numeric"
               keyboardType="numeric"
+              maxLength={6}
               placeholderTextColor={'#8177A0'}
               showSoftInputOnFocus={true}
             />
@@ -36,7 +42,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#2A2636',
+    backgroundColor: Colors.background,
   },
   mainContent: {
     alignItems: 'center',
@@ -44,43 +50,37 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   h1: {
-    color: '#FFFFFF',
-    fontSize: 40,
+    color: Colors.foreground,
+    fontSize: 37,
     textAlign: 'center',
     fontWeight: 'bold',
     padding: 15,
-    lineHeight: 40,
+    lineHeight: 50,
   },
   textInput: {
-    backgroundColor: '#FFFFFF',
-    color: '#2A2636',
-    fontSize: 20,
-    borderColor: '#D0D5DD',
-    padding: 1,
-    width: 350,
+    backgroundColor: Colors.foreground,
+    color: Colors.background,
+    fontSize: 23,
+    borderColor: Colors.foreground,
+    width: 300,
+    marginRight: 80,
     textAlign: 'center',
+    fontFamily: 'Noto Sans Light',
   },
   straightLine: {
-    borderBottomColor: '#FFFFFF',
-    borderBottomWidth: 1,
+    borderBottomColor: Colors.foreground,
+    borderBottomWidth: 1.5,
     width: 380,
     marginBottom: 10,
-  },
-  searchIcon: {
-    padding: 10,
-    marginLeft: 15,
   },
   searchSection: {
     height: 50,
     flexDirection: 'row',
-    justifyContent: 'center',
+    backgroundColor: Colors.foreground,
+    borderRadius: 10,
+    width: 350,
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-    paddingLeft: 0,
+    paddingLeft: 10,
     marginTop: 15,
   },
 });
