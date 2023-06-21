@@ -14,7 +14,7 @@ export const Colors = {
   orange500: '#978F6A',
 
   // TEXT HIGHLIGHT
-  textHighlight500: '#EOA400',
+  textHighlight500: '#E0A400',
 
   // ERROR
   error100: '#F9F2EB',

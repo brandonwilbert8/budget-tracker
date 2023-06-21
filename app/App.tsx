@@ -7,6 +7,8 @@ import SummaryScreen from './screens/SummaryScreen';
 import OverviewScreen from './screens/OverviewScreen';
 import LandingScreen from './screens/LandingScreen';
 import {StatusBar} from 'react-native';
+import {Colors} from './assets/constants';
+import {MaterialIcon} from './components/Icon';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,37 +18,66 @@ function App(): JSX.Element {
       <StatusBar barStyle={'light-content'} />
       <Drawer.Navigator
         screenOptions={{
-          drawerStyle: {
-            backgroundColor: '#2a2636',
-            padding: 20,
-            width: 240,
-            borderColor: '#2a2636',
-          },
-          headerStyle: {backgroundColor: '#2a2636'},
+          headerStyle: {backgroundColor: Colors.background},
+          headerTransparent: true,
           headerTitle: '',
-          drawerActiveTintColor: '#e0a400',
-          drawerInactiveTintColor: '#fff',
+          drawerActiveTintColor: Colors.textHighlight500,
+          drawerActiveBackgroundColor: Colors.background,
+          drawerInactiveTintColor: Colors.foreground,
+          drawerStyle: {
+            backgroundColor: Colors.background,
+            paddingTop: 10,
+            width: 230,
+          },
         }}
       >
         <Drawer.Screen
           name="Landing"
           component={LandingScreen}
-          options={{drawerLabel: 'Landing'}}
+          options={{
+            drawerIcon: ({color}) => (
+              <MaterialIcon
+                size="large"
+                color={color}
+                name="airplane-landing"
+              />
+            ),
+            drawerLabel: 'Landing',
+          }}
         />
         <Drawer.Screen
           name="Home"
           component={HomeScreen}
-          options={{drawerLabel: 'Home'}}
+          options={{
+            drawerIcon: ({color}) => (
+              <MaterialIcon size="large" color={color} name="home" />
+            ),
+            drawerLabel: 'Home',
+          }}
         />
         <Drawer.Screen
           name="Summary"
           component={SummaryScreen}
-          options={{drawerLabel: 'Summary'}}
+          options={{
+            drawerIcon: ({color}) => (
+              <MaterialIcon
+                size="large"
+                color={color}
+                name="notebook-outline"
+              />
+            ),
+            drawerLabel: 'Summary',
+          }}
         />
         <Drawer.Screen
           name="Overview"
           component={OverviewScreen}
-          options={{drawerLabel: 'Overview'}}
+          options={{
+            drawerIcon: ({color}) => (
+              <MaterialIcon size="large" color={color} name="eye" />
+            ),
+            drawerLabel: 'Overview',
+          }}
         />
       </Drawer.Navigator>
     </NavigationContainer>
