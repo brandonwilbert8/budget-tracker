@@ -32,16 +32,6 @@ const DrawerNavigation = () => {
       drawerContent={props => <CustomDrawer {...props} />}
     >
       <Drawer.Screen
-        name="Overview"
-        component={OverviewScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <MaterialIcon size="large" color={color} name="eye" />
-          ),
-          drawerLabel: 'Overview',
-        }}
-      />
-      <Drawer.Screen
         name="Landing"
         component={LandingScreen}
         options={{
@@ -69,6 +59,17 @@ const DrawerNavigation = () => {
             <MaterialIcon size="large" color={color} name="notebook-outline" />
           ),
           drawerLabel: 'Summary',
+        }}
+      />
+
+      <Drawer.Screen
+        name="Overview"
+        component={OverviewScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcon size="large" color={color} name="eye" />
+          ),
+          drawerLabel: 'Overview',
         }}
       />
     </Drawer.Navigator>

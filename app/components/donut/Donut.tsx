@@ -131,7 +131,9 @@ const Donut = (donut: DonutValues) => {
         <Text style={[styles.inputText, {fontSize: donut.radius / 5}]}>
           {planType} Plan
         </Text>
-        <Text style={[styles.planDesc]}>{planTypeDesc}</Text>
+        <Text style={[styles.planDesc, {fontSize: donut.radius / 12}]}>
+          {planTypeDesc}
+        </Text>
       </View>
     </View>
   );
