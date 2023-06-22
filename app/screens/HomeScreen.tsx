@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Text} from '../components/Text';
+import {Colors} from '../assets/constants';
+import Donut from '../components/donut/Donut';
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
-      <Text style={styles.boldFont}>Home</Text>
+      <View style={styles.graphContent}></View>
     </View>
   );
 };
@@ -18,10 +19,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2a2636',
+    backgroundColor: Colors.background,
   },
   boldFont: {
     fontFamily: 'NotoSans-Bold',
     fontSize: 40,
+  },
+  graphContent: {
+    flex: 1,
+    marginTop: 100,
   },
 });
