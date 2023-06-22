@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,8 +9,17 @@ import {
 import {Text} from '../components/Text';
 import {Colors} from '../assets/constants';
 import {MaterialIcon} from '../components/Icon';
+import NextButton from '../components/NextButton';
 
 export default function LandingScreen(): JSX.Element {
+  const [text, setText] = useState('');
+
+  const buttonHandler = (): void => {
+    if (text.length <= 0) {
+      console.log('EMPTY');
+    } else console.log(text);
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -31,8 +40,13 @@ export default function LandingScreen(): JSX.Element {
               maxLength={6}
               placeholderTextColor={'#8177A0'}
               showSoftInputOnFocus={true}
+              onChangeText={newText => setText(newText)}
+              defaultValue={text}
             />
           </View>
+        </View>
+        <View style={styles.buttonStyle}>
+          <NextButton onPress={buttonHandler} />
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -47,7 +61,7 @@ const styles = StyleSheet.create({
   mainContent: {
     alignItems: 'center',
     width: '100%',
-    marginBottom: 40,
+    marginBottom: 15,
   },
   h1: {
     color: Colors.foreground,
@@ -82,5 +96,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 10,
     marginTop: 15,
+  },
+  buttonStyle: {
+    alignItems: 'center',
   },
 });

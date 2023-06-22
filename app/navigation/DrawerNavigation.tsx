@@ -8,6 +8,9 @@ import LandingScreen from '../screens/LandingScreen';
 import {Colors} from '../assets/constants';
 import {MaterialIcon} from '../components/Icon';
 import CustomDrawer from './CustomDrawer';
+import PlanningScreen from '../screens/PlanningScreen';
+import LoginScreen from '../screens/LoginScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -70,6 +73,36 @@ const DrawerNavigation = () => {
             <MaterialIcon size="large" color={color} name="eye" />
           ),
           drawerLabel: 'Overview',
+        }}
+      />
+      <Drawer.Screen
+        name="Pick a plan"
+        component={PlanningScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcon size="large" color={color} name="notebook-multiple" />
+          ),
+          drawerLabel: 'Pick a plan',
+        }}
+      />
+      <Drawer.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcon size="large" color={color} name="account-key" />
+          ),
+          drawerLabel: 'Login',
+        }}
+      />
+      <Drawer.Screen
+        name="SignUp"
+        component={SignUpScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcon size="large" color={color} name="file-replace" />
+          ),
+          drawerLabel: 'Sign Up',
         }}
       />
     </Drawer.Navigator>
