@@ -5,6 +5,7 @@ import {
   StyleProp,
   TextStyle,
 } from 'react-native';
+import {Colors} from '../assets/constants';
 
 type TextProps = {
   children: React.ReactNode;
@@ -17,8 +18,8 @@ export const Text = ({style, children}: TextProps) => {
 
 const styles = StyleSheet.create({
   font: {
-    fontFamily: 'Noto Sans',
-    color: '#fff',
+    fontFamily: 'NotoSans-Light',
+    color: Colors.foreground,
     fontSize: 14,
   },
 });
