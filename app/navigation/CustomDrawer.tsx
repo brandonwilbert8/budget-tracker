@@ -24,7 +24,7 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
         <View style={styles.userContainer}>
           <View>
             <Text>John Doe</Text>
-            <Text>john@example.com</Text>
+            <Text>johndoe@example.com</Text>
           </View>
           <View style={styles.avatar}>
             <MaterialIcon
@@ -63,8 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     backgroundColor: Colors.background,
-    marginTop: 50,
-    marginBottom: 20,
+    marginBottom: 10,
     paddingVertical: 10,
     width: 220,
     borderBottomColor: Colors.foreground,
