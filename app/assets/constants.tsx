@@ -3,6 +3,7 @@ export const Colors = {
   foreground: '#F8FBFF',
   background: '#2A2636',
   light: '#8d84a9',
+  lighter: '#c5c0d3',
 
   // GRAPH COLORS
   blue300: '#498CF1',

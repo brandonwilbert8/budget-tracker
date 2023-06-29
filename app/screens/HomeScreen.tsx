@@ -1,8 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Text} from '../components/Text';
 import {Colors} from '../assets/constants';
-import Donut from '../components/donut/Donut';
 
 const HomeScreen = () => {
   return (

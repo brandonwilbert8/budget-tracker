@@ -11,6 +11,8 @@ import CustomDrawer from './CustomDrawer';
 import PlanningScreen from '../screens/PlanningScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
+import SplashScreen from '../screens/SplashScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,6 +36,16 @@ const DrawerNavigation = () => {
       }}
       drawerContent={props => <CustomDrawer {...props} />}
     >
+      <Drawer.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcon size="large" color={color} name="human-greeting" />
+          ),
+          drawerLabel: 'Welcome',
+        }}
+      />
       <Drawer.Screen
         name="Landing"
         component={LandingScreen}
@@ -103,6 +115,16 @@ const DrawerNavigation = () => {
             <MaterialIcon size="large" color={color} name="file-replace" />
           ),
           drawerLabel: 'Sign Up',
+        }}
+      />
+      <Drawer.Screen
+        name="SplashScreenExample"
+        component={SplashScreen}
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcon size="large" color={color} name="file-replace" />
+          ),
+          drawerLabel: 'Splash Screen Example',
         }}
       />
     </Drawer.Navigator>
