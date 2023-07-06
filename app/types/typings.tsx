@@ -8,3 +8,9 @@ export type DonutValues = {
   color: string;
   delay: number;
 };
+
+export type PlanType = {
+  wants: number;
+  needs: number;
+  savings: number;
+};

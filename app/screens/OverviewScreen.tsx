@@ -1,10 +1,9 @@
 import {Dimensions, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors} from '../assets/constants';
-import Donut from '../components/donut/Donut';
-import {Text} from '../components/Text';
-import Pill from '../components/Pill';
-import {MaterialIcon} from '../components/Icon';
+import OverviewDonut from '../components/donut/OverviewDonut';
+import CategoryDescription from '../components/CategoryDescription';
+import {PlanType} from '../types/typings';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -17,6 +16,13 @@ const donut = {
   delay: 0,
 };
 
+const monthlyIncome: number = 4000;
+const planType: PlanType = {
+  wants: monthlyIncome * 0.3,
+  needs: monthlyIncome * 0.5,
+  savings: monthlyIncome * 0.2,
+};
+
 const OverviewScreen = () => {
   const needs = donut.monthlyIncome * 0.5;
   const wants = donut.monthlyIncome * 0.3 + donut.monthlyIncome * 0.2;
@@ -26,7 +32,7 @@ const OverviewScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.graphContent}>
-        <Donut
+        <OverviewDonut
           monthlyIncome={donut.monthlyIncome}
           wants={wants}
           savings={savings}
@@ -37,57 +43,7 @@ const OverviewScreen = () => {
           delay={donut.delay}
         />
       </View>
-      <View style={styles.infoDesc}>
-        <View style={styles.headerDesc}>
-          <Text style={{fontSize: deviceWidth / 20}}>Category</Text>
-          <Text style={{fontSize: deviceWidth / 20}}>Spending</Text>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.pill}>
-            <View style={styles.icon}>
-              <MaterialIcon
-                name="cash-multiple"
-                size="large"
-                color={Colors.foreground}
-              />
-            </View>
-            <Pill color={Colors.blue300}>Savings</Pill>
-          </View>
-          <Text style={{fontSize: deviceWidth / 14, textAlign: 'left'}}>
-            ${savings}
-          </Text>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.pill}>
-            <View style={styles.icon}>
-              <MaterialIcon
-                name="account-supervisor-circle"
-                size="large"
-                color={Colors.foreground}
-              />
-            </View>
-            <Pill color={Colors.orange300}>Needs</Pill>
-          </View>
-          <Text style={{fontSize: deviceWidth / 14, textAlign: 'left'}}>
-            ${needs}
-          </Text>
-        </View>
-        <View style={styles.row}>
-          <View style={styles.pill}>
-            <View style={styles.icon}>
-              <MaterialIcon
-                name="cart"
-                size="large"
-                color={Colors.foreground}
-              />
-            </View>
-            <Pill color={Colors.green300}>Wants</Pill>
-          </View>
-          <Text style={{fontSize: deviceWidth / 14, textAlign: 'left'}}>
-            ${wantsDividend}
-          </Text>
-        </View>
-      </View>
+      <CategoryDescription planType={planType} isOverview={true} />
     </View>
   );
 };
