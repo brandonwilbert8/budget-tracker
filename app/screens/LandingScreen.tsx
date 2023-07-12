@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   h1: {
     color: Colors.foreground,
-    fontSize: 37,
+    fontSize: 35,
     textAlign: 'center',
     fontWeight: 'bold',
     padding: 15,
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   straightLine: {
     borderBottomColor: Colors.foreground,
     borderBottomWidth: 1.5,
-    width: 380,
+    width: 350,
     marginBottom: 10,
   },
   searchSection: {

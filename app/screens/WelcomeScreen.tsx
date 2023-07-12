@@ -3,13 +3,28 @@ import {View, StyleSheet} from 'react-native';
 import {Text} from '../components/Text';
 import {Colors} from '../assets/constants';
 import {Button} from 'react-native-paper';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
-export default function WelcomeScreen(): JSX.Element {
+interface Props {
+  navigation: NavigationProp<ParamListBase>;
+}
+
+export default function WelcomeScreen({navigation}: Props): JSX.Element {
+  function SignUpHandler() {
+    navigation.navigate('SignUp');
+    console.log('Sign Up pressed!');
+  }
+
+  function LogInHandler() {
+    navigation.navigate('Login');
+    console.log('Sign Up pressed!');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.mainContent}>
-        <Text style={styles.h1}>Welcome</Text>
-        <Text style={styles.h2}>Let's save money together</Text>
+        <Text style={styles.h1}>Welcome 🎉</Text>
+        <Text style={styles.h2}>Take charge of your financial future</Text>
         <View style={styles.buttonStyle}>
           <Button
             icon="account-plus"
@@ -20,7 +35,7 @@ export default function WelcomeScreen(): JSX.Element {
             contentStyle={{
               paddingVertical: 5,
             }}
-            onPress={() => console.log('Sign Up Pressed')}
+            onPress={() => SignUpHandler()}
           >
             Sign Up
           </Button>
@@ -33,7 +48,7 @@ export default function WelcomeScreen(): JSX.Element {
             contentStyle={{
               paddingVertical: 5,
             }}
-            onPress={() => console.log('Login Pressed')}
+            onPress={() => LogInHandler()}
           >
             Login
           </Button>
@@ -64,12 +79,12 @@ const styles = StyleSheet.create({
   },
   h2: {
     color: Colors.foreground,
-    fontSize: 30,
+    fontSize: 22,
     fontFamily: 'NotoSans-Medium',
     textAlign: 'center',
     fontWeight: '300',
     padding: 15,
-    lineHeight: 15,
+    lineHeight: 10,
   },
   textInput: {
     backgroundColor: Colors.foreground,
@@ -104,6 +119,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   buttonSize: {
-    width: 150,
+    width: 130,
   },
 });

@@ -8,18 +8,19 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {MaterialIcon} from './Icon';
 
-interface NextButtonProps extends TouchableOpacityProps {
+interface BackButtonProps extends TouchableOpacityProps {
   onPress: () => void;
+  buttonName: string;
 }
 
-const NextButton = ({onPress}: NextButtonProps) => {
+const BackButton = ({onPress, buttonName}: BackButtonProps) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>
         <MaterialIcon
-          size="gigaLarge"
+          size="extraLarge"
           color={Colors.background}
-          name="arrow-right"
+          name={buttonName}
         />
       </Text>
     </TouchableOpacity>
@@ -40,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NextButton;
+export default BackButton;

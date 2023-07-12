@@ -11,12 +11,23 @@ import {
 import {Text} from '../components/Text';
 import {Colors} from '../assets/constants';
 import {Button, TextInput} from 'react-native-paper';
+import BackButton from '../components/BackButton';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
-const SignUpScreen = () => {
+interface Props {
+  navigation: NavigationProp<ParamListBase>;
+}
+
+const SignUpScreen = ({navigation}: Props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  function backButtonHandler() {
+    console.log('Back button pressed!');
+    navigation.goBack();
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -30,6 +41,12 @@ const SignUpScreen = () => {
         >
           <View style={styles.container}>
             <View style={styles.mainContent}>
+              <View style={styles.backButtonStyle}>
+                <BackButton
+                  onPress={() => backButtonHandler()}
+                  buttonName={'arrow-left'}
+                />
+              </View>
               <Text style={styles.boldFont}>Sign Up 📝</Text>
               <View style={styles.input}>
                 <TextInput
@@ -139,7 +156,7 @@ const SignUpScreen = () => {
                 contentStyle={{
                   paddingVertical: 5,
                 }}
-                onPress={() => console.log('Login Pressed')}
+                onPress={() => console.log('Sign Up Pressed')}
               >
                 Sign Up
               </Button>
@@ -167,26 +184,13 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     width: '100%',
-    marginBottom: 10,
   },
   boldFont: {
     fontFamily: 'NotoSans-Bold',
     fontSize: 45,
     textAlign: 'left',
-    marginLeft: 70,
-    marginBottom: 35,
-  },
-  normalFont: {
-    fontFamily: 'NotoSans-Medium',
-    fontSize: 15,
-    textAlign: 'center',
-    marginTop: 40,
-  },
-  linkFont: {
-    fontFamily: 'NotoSans-Bold',
-    fontSize: 15,
-    color: Colors.textHighlight500,
-    textAlign: 'center',
+    marginLeft: 50,
+    marginBottom: 20,
   },
   textInput: {
     backgroundColor: Colors.background,
@@ -208,5 +212,11 @@ const styles = StyleSheet.create({
   },
   buttonSize: {
     width: 150,
+  },
+  backButtonStyle: {
+    alignSelf: 'flex-start',
+    marginTop: -90,
+    marginLeft: 25,
+    position: 'absolute',
   },
 });

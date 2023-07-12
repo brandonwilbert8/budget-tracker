@@ -8,15 +8,32 @@ import {
 import {Text} from '../components/Text';
 import {Colors} from '../assets/constants';
 import {Button, TextInput} from 'react-native-paper';
+import {NavigationProp, ParamListBase} from '@react-navigation/native';
+import BackButton from '../components/BackButton';
 
-const LoginScreen = () => {
+interface Props {
+  navigation: NavigationProp<ParamListBase>;
+}
+
+const LoginScreen = ({navigation}: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  function backButtonHandler() {
+    console.log('Back button pressed!');
+    navigation.goBack();
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.mainContent}>
+          <View style={styles.backButtonStyle}>
+            <BackButton
+              onPress={() => backButtonHandler()}
+              buttonName={'arrow-left'}
+            />
+          </View>
           <Text style={styles.boldFont}>Log In 🙋‍♂️</Text>
           <View style={styles.input}>
             <TextInput
@@ -100,7 +117,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   mainContent: {
-    justifyContent: 'center',
     width: '100%',
     marginBottom: 10,
   },
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
     fontFamily: 'NotoSans-Bold',
     fontSize: 45,
     textAlign: 'left',
-    marginLeft: 70,
+    marginLeft: 50,
     marginBottom: 35,
   },
   normalFont: {
@@ -143,5 +159,11 @@ const styles = StyleSheet.create({
   },
   buttonSize: {
     width: 150,
+  },
+  backButtonStyle: {
+    alignSelf: 'flex-start',
+    marginTop: -100,
+    marginLeft: 25,
+    position: 'absolute',
   },
 });

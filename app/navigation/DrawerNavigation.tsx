@@ -9,10 +9,6 @@ import {Colors} from '../assets/constants';
 import {MaterialIcon} from '../components/Icon';
 import CustomDrawer from './CustomDrawer';
 import PlanningScreen from '../screens/PlanningScreen';
-import LoginScreen from '../screens/LoginScreen';
-import SignUpScreen from '../screens/SignUpScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
-import SplashScreen from '../screens/SplashScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -37,13 +33,13 @@ const DrawerNavigation = () => {
       drawerContent={props => <CustomDrawer {...props} />}
     >
       <Drawer.Screen
-        name="Welcome"
-        component={WelcomeScreen}
+        name="Home"
+        component={HomeScreen}
         options={{
           drawerIcon: ({color}) => (
-            <MaterialIcon size="large" color={color} name="human-greeting" />
+            <MaterialIcon size="large" color={color} name="home" />
           ),
-          drawerLabel: 'Welcome',
+          drawerLabel: 'Home',
         }}
       />
       <Drawer.Screen
@@ -56,16 +52,7 @@ const DrawerNavigation = () => {
           drawerLabel: 'Landing',
         }}
       />
-      <Drawer.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <MaterialIcon size="large" color={color} name="home" />
-          ),
-          drawerLabel: 'Home',
-        }}
-      />
+
       <Drawer.Screen
         name="Summary"
         component={SummaryScreen}
@@ -95,36 +82,6 @@ const DrawerNavigation = () => {
             <MaterialIcon size="large" color={color} name="notebook-multiple" />
           ),
           drawerLabel: 'Pick a plan',
-        }}
-      />
-      <Drawer.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <MaterialIcon size="large" color={color} name="account-key" />
-          ),
-          drawerLabel: 'Login',
-        }}
-      />
-      <Drawer.Screen
-        name="SignUp"
-        component={SignUpScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <MaterialIcon size="large" color={color} name="file-replace" />
-          ),
-          drawerLabel: 'Sign Up',
-        }}
-      />
-      <Drawer.Screen
-        name="SplashScreenExample"
-        component={SplashScreen}
-        options={{
-          drawerIcon: ({color}) => (
-            <MaterialIcon size="large" color={color} name="file-replace" />
-          ),
-          drawerLabel: 'Splash Screen Example',
         }}
       />
     </Drawer.Navigator>

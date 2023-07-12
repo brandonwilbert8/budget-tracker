@@ -1,6 +1,4 @@
 import monthExpenseModel from '../models/monthExpense';
-import * as monthExpenseService from '../services/monthExpenseService';
-
 import userModel from '../models/user';
 import { User } from '../types/entities';
 import expenseModel from '../models/expense';
@@ -40,11 +38,11 @@ export const getUserById = async (userId: string): Promise<User> => {
 export const deleteUserById = async (userId: string): Promise<User> => {
     try {
         const targetUser = await userModel.findByIdAndDelete(userId);
-        targetUser?.history?.map(async (month) => {
+        targetUser?.history?.map(async (month: any) => {
             const monthExpense = await monthExpenseModel.findByIdAndDelete(
                 month._id
             );
-            monthExpense?.expenseCollection.map(async (expense) => {
+            monthExpense?.expenseCollection.map(async (expense: any) => {
                 await expenseModel.findByIdAndDelete(expense._id);
             });
         });
