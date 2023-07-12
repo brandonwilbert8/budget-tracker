@@ -14,3 +14,14 @@ export type PlanType = {
   needs: number;
   savings: number;
 };
+
+export type CategoryDescriptionProps = {
+  planType: PlanType;
+  isOverview?: boolean;
+};
+
+export type SummaryListItemProps = {
+  category: 'savings' | 'wants' | 'needs';
+  description: string;
+  spent: number;
+};

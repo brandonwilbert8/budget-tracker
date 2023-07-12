@@ -18,7 +18,7 @@ export const Text = ({style, children}: TextProps) => {
 
 const styles = StyleSheet.create({
   font: {
-    fontFamily: 'NotoSans-Light',
+    fontFamily: 'NotoSans-Regular',
     color: Colors.foreground,
     fontSize: 14,
   },

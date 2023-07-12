@@ -1,16 +1,10 @@
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
 import {Text} from '../components/Text';
 import {Colors} from '../assets/constants';
-import HomeDonut from '../components/donut/HomeDonut';
 import {MaterialIcon} from '../components/Icon';
 import Pill from '../components/Pill';
-import React, {useEffect, useState} from 'react';
-import {PlanType} from '../types/typings';
-
-type CategoryDescriptionProps = {
-  planType: PlanType;
-  isOverview?: boolean;
-};
+import {CategoryDescriptionProps, PlanType} from '../types/typings';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -35,8 +29,8 @@ const CategoryDescription = (props: CategoryDescriptionProps) => {
   return (
     <View style={styles.infoDesc}>
       <View style={styles.headerDesc}>
-        <Text style={{fontSize: deviceWidth / 18}}>Category</Text>
-        <Text style={{fontSize: deviceWidth / 18}}>
+        <Text style={styles.heading}>Category</Text>
+        <Text style={styles.heading}>
           {props.isOverview ? 'Allocation' : 'Spent'}
         </Text>
       </View>
@@ -49,9 +43,9 @@ const CategoryDescription = (props: CategoryDescriptionProps) => {
               color={Colors.foreground}
             />
           </View>
-          <Pill color={Colors.blue300}>Savings</Pill>
+          <Pill category="savings" size="md"></Pill>
         </View>
-        <Text style={{fontSize: deviceWidth / 14, marginRight: 50}}>
+        <Text style={styles.text}>
           {props.isOverview ? `$${planDetails.savings}` : `$${spentSavings}`}
         </Text>
       </View>
@@ -64,9 +58,9 @@ const CategoryDescription = (props: CategoryDescriptionProps) => {
               color={Colors.foreground}
             />
           </View>
-          <Pill color={Colors.orange300}>Needs</Pill>
+          <Pill category="needs" size="md"></Pill>
         </View>
-        <Text style={{fontSize: deviceWidth / 14, marginRight: 50}}>
+        <Text style={styles.text}>
           {props.isOverview ? `$${planDetails.needs}` : `$${spentNeeds}`}
         </Text>
       </View>
@@ -75,9 +69,9 @@ const CategoryDescription = (props: CategoryDescriptionProps) => {
           <View style={styles.icon}>
             <MaterialIcon name="cart" size="large" color={Colors.foreground} />
           </View>
-          <Pill color={Colors.green300}>Wants</Pill>
+          <Pill category="wants" size="md"></Pill>
         </View>
-        <Text style={{fontSize: deviceWidth / 14, marginRight: 50}}>
+        <Text style={styles.text}>
           {props.isOverview ? `$${planDetails.wants}` : `$${spentWants}`}
         </Text>
       </View>
@@ -98,21 +92,33 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomColor: Colors.foreground,
     borderBottomWidth: 1,
-    paddingHorizontal: 40,
-    paddingVertical: 20,
-    marginBottom: 10,
+  },
+  heading: {
+    fontSize: deviceWidth / 18,
+    flex: 0.5,
+    textAlign: 'center',
+    padding: 10,
   },
   row: {
     flexDirection: 'row',
-    marginTop: 20,
+    width: deviceWidth - 50,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 5,
+    paddingVertical: 20,
+    borderBottomColor: Colors.light,
+    borderBottomWidth: 0.5,
   },
   pill: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 100,
+    flex: 0.5,
+  },
+  text: {
+    flex: 0.5,
+    fontSize: deviceWidth / 18,
+    fontFamily: 'NotoSans-Light',
+    textAlign: 'center',
   },
   icon: {
     paddingRight: 10,
