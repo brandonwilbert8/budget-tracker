@@ -20,8 +20,6 @@ const CategoryDescription = (props: CategoryDescriptionProps) => {
     planDetails.needs + planDetails.savings + planDetails.wants
   );
 
-  console.log(remainingBal);
-
   useEffect(() => {
     setRemainingBal(total - 100);
   }, [props.planType]);
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
   infoDesc: {
     flex: 1,
     width: deviceWidth - 50,
-    marginTop: 90,
+    marginTop: 100,
   },
   headerDesc: {
     flexDirection: 'row',

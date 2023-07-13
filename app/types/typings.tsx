@@ -25,3 +25,8 @@ export type SummaryListItemProps = {
   description: string;
   spent: number;
 };
+
+export type CategoryDropdown = {
+  key: string;
+  value: 'Savings' | 'Wants' | 'Needs';
+};
